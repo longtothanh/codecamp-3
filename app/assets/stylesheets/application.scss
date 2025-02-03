@@ -15,3 +15,84 @@
  */
 
 @import "bootstrap";
+@import "weather";
+
+:root {
+  --main-text-color: hsl(205, 16%, 77%);
+  --secondary-text-color: hsl(195, 85%, 41%);
+  --h2-color: #e1e6eb;
+  --h4-color: #c8d1d8;
+  --muted-color: hsl(205, 10%, 50%);
+  --border-color: #374956;
+  --background-input: #11191f;
+}
+
+// Universal
+body {
+  padding: 0;
+  margin: 0;
+  color: white;
+}
+section {
+  overflow: auto;
+}
+textarea {
+  resize: vertical;
+}
+.center {
+  text-align: center;
+}
+.center h1 {
+  margin-bottom: 10px;
+}
+.center {
+  text-align: center;
+}
+a {
+  text-decoration: none;
+}
+
+/* typography */
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1;
+}
+h1 {
+  font-size: 3em;
+  letter-spacing: -2px;
+  margin-bottom: 30px;
+}
+h2 {
+  font-size: 35px;
+  letter-spacing: -1px;
+  margin-bottom: 30px;
+  font-weight: 700;
+  color: var(--h2-color);
+}
+h3 {
+  color: var(--muted-color);
+  font-size: 20px;
+}
+h4 {
+  color: var(--h4-color);
+  margin-bottom: 1.874rem;
+  font-size: 24px;
+  font-weight: 700;
+}
+p {
+  font-size: 1.1em;
+  line-height: 1.7em;
+}
+
+input.form-control {
+  border-radius: 0.25rem;
+  border: 1px solid var(--border-color);
+  background-color: var(--background-input);
+  color: var(--main-text-color);
+  &:focus {
+    border-radius: 0.25rem;
+    border: 1px solid var(--border-color);
+    background-color: var(--background-input);
+    color: var(--main-text-color);
+  }
+}
+

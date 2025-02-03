@@ -1,0 +1,88 @@
+@import "bootstrap";
+// Header
+// Logo
+#logo {
+  float: left;
+  margin-right: 10px;
+  font-size: 1.8em;
+  color: var(--main-text-color);
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  padding-top: 9px;
+  font-weight: bold;
+}
+#logo:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+// Navbar
+nav {
+  ul.nav {
+    li {
+      padding: 19px 9.5px;
+      a {
+        text-decoration: none;
+        color: var(--secondary-text-color);
+        font-size: 19px;
+      }
+
+      &:last-child {
+        a {
+          color: white;
+          padding: 9.5px;
+        }
+      }
+    }
+  }
+}
+
+// body
+main.container {
+  margin: 0 53px;
+  padding: 80px 0;
+}
+// Right forecast
+.forecast {
+  margin-top: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  .forecast-card {
+    color: var(--h4-color);
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    background-color: #f9f9f9;
+    text-align: center;
+  }
+}
+
+// Left forecast
+#weather-form {
+  .row {
+    .col-6 {
+      .form-group {
+        .form-control {
+          padding: 15px 20px;
+
+          &::placeholder {
+            color: var(--main-text-color);
+          }
+        }
+      }
+
+      .btn-info {
+        padding: 15px 20px;
+      }
+    }
+  }
+}
+
+.weather-details {
+  color: var(--main-text-color);
+  margin-top: 30px;
+  h2 {
+    margin-bottom: 45px;
+  }
+}

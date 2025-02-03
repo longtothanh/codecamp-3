@@ -1,0 +1,33 @@
+main.container
+  .d-flex.justify-content-center.align-items-center
+  .row.w-100
+    .col-6
+      h2 Current Weather
+      h3 Enter a city to get the latest weather updates.
+      = form_with url: "#", method: :get, local: true, id: 'weather-form', class: 'd-flex justify-content-center align-items-center' do |f|
+        .row.w-100
+          .col-6.px-0
+            .form-group
+              = f.text_field :country, id: "country", class: 'form-control my-3 me-3', placeholder: 'Enter country name'
+          .col-6.d-flex.justify-content-center.px-0
+            = f.submit 'Get Weather', class: 'btn btn-info text-light my-3 w-100 ms-3'
+      .weather-details
+        h2 Weather Details:
+        p
+          strong Temperature: --°C
+        p
+          strong Humidity: --%
+        p
+          strong Wind Speed: --km/h
+
+    .col-6
+      h2 Weather Forecast
+      h3 5-Day Forecast
+      .forecast
+        = render partial: 'forecast_card', locals: { day_number: 1, temperature: 25, humidity: 60 }
+        = render partial: 'forecast_card', locals: { day_number: 2, temperature: 25, humidity: 60 }
+        = render partial: 'forecast_card', locals: { day_number: 3, temperature: 25, humidity: 60 }
+        = render partial: 'forecast_card', locals: { day_number: 4, temperature: 25, humidity: 60 }
+        = render partial: 'forecast_card', locals: { day_number: 5, temperature: 25, humidity: 60 }
+        = render partial: 'forecast_card', locals: { day_number: 6, temperature: 25, humidity: 60 }
+        = render partial: 'forecast_card', locals: { day_number: 7, temperature: 25, humidity: 60 }
