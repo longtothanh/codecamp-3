@@ -1,4 +1,8 @@
 $(function () {
+  let weatherUpdateInterval;
+  updateCurrentTime();
+  setInterval(updateCurrentTime, 1000);
+
   $(document).on("change", "#state", function(e) {
     e.preventDefault();
 
@@ -39,11 +43,21 @@ $(function () {
   });
 
   $(document).on("change", "#city", function() {
+
+    if (weatherUpdateInterval) {
+      clearInterval(weatherUpdateInterval);
+    }
+
     const selectedCity = $(this).val();
     const selectedState = $("#state").val();
     const selectedCountry = $("#country").val();
 
     if (selectedCity && selectedState && selectedCountry) {
+
+      updateWeather();
+
+      weatherUpdateInterval = setInterval(updateWeather, 60000);
+
       $.ajax({
         url: `/cities/show`,
         method: "GET",
@@ -55,34 +69,6 @@ $(function () {
         success: function(cityData) {
           // console.log("City data:", cityData);
           displayCityName(cityData.name);
-
-          $.ajax({
-            url: '/weather',
-            method: "GET",
-            data: { city: cityData.name },
-            success: function(weatherData) {
-              // console.log("Weather data:", weatherData);
-              displayWeather(weatherData);
-            },
-            error: function(error) {
-              console.error("Error fetching weather:", error);
-              showError("Unable to fetch weather data");
-            }
-          });
-
-          $.ajax({
-            url: '/weather/forecast',
-            method: "GET",
-            data: { city: cityData.name, days: 7 },
-            success: function(forecastData) {
-              console.log("Forecast data:", forecastData);
-              updateForecastDisplay(forecastData);
-            },
-            error: function(error) {
-              console.error("Error fetching forecast:", error);
-              showError("Unable to fetch forecast data");
-            }
-          });
         },
         error: function(error) {
           console.error("Error fetching city:", error);
@@ -92,6 +78,58 @@ $(function () {
     }
   });
 });
+
+function updateWeather() {
+  const selectedCity = $("#city").val();
+  const selectedState = $("#state").val();
+  const selectedCountry = $("#country").val();
+
+  if (selectedCity && selectedState && selectedCountry) {
+    $.ajax({
+      url: `/cities/show`,
+      method: "GET",
+      data: {
+        country_code: selectedCountry,
+        state_code: selectedState,
+        city_id: selectedCity
+      },
+      success: function(cityData) {
+        displayCityName(cityData.name);
+
+        $.ajax({
+          url: '/weather',
+          method: "GET",
+          data: { city: cityData.name },
+          success: function(weatherData) {
+            displayWeather(weatherData);
+            displayLastUpdateTime();
+          },
+          error: function(error) {
+            console.error("Error fetching weather:", error);
+            showError("Unable to fetch weather data");
+          }
+        });
+
+        $.ajax({
+          url: '/weather/forecast',
+          method: "GET",
+          data: { city: cityData.name, days: 7 },
+          success: function(forecastData) {
+            updateForecastDisplay(forecastData);
+          },
+          error: function(error) {
+            console.error("Error fetching forecast:", error);
+            showError("Unable to fetch forecast data");
+          }
+        });
+      },
+      error: function(error) {
+        console.error("Error fetching city:", error);
+        showError("Unable to fetch city data");
+      }
+    });
+  }
+}
 
 function displayCityName(cityName) {
   const cityDisplayHtml = `
@@ -168,4 +206,16 @@ function showError(message) {
   `;
 
   $("#city-display, #weather-display").html(errorHtml);
+}
+
+function displayLastUpdateTime() {
+  const now = new Date();
+  const formattedTime = now.toLocaleTimeString();
+  $("#last-update").text(`Last updated: ${formattedTime}`);
+}
+
+function updateCurrentTime() {
+  const now = new Date();
+  const formattedTime = now.toLocaleTimeString();
+  $("#current-time").text(`Current time: ${formattedTime}`);
 }

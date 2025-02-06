@@ -3,6 +3,7 @@ main.container
   .row.w-100
     .col-6
       h2 Current Weather
+      #current-time.mb-3
       h3 Enter a city to get the latest weather updates.
       = form_with url: root_path, method: :get, local: true, id: 'weather-form', class: 'd-flex justify-content-center align-items-center' do |f|
         .row.w-100
@@ -17,7 +18,6 @@ main.container
               #state-wrapper
               #city-wrapper
           .col-3.d-flex.justify-content-center.px-0
-            / = f.submit 'Get Weather', class: 'btn btn-info text-light my-3 w-100 ms-3'
       .weather-details
         #city-display
         #weather-display
@@ -25,4 +25,3 @@ main.container
       h2 Weather Forecast
       #last-update.text-white.mb-2
       .forecast
-        / Forecast cards will be dynamically inserted here
