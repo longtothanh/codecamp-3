@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
   root "home#index"
+  get 'countries', to: 'home#index'
+  get 'countries/:country_code/states', to: 'home#states', as: 'states'
+  get 'countries/:country_code/states/:state_code/cities', to: 'home#cities', as: 'cities'
+  # get 'weather', to: 'home#weather'
+
+  get 'cities/show', to: 'home#show_city'
+  get 'weather', to: 'home#weather'
+  get 'weather/forecast', to: 'home#forecast'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
